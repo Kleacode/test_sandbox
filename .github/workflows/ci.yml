@@ -4,7 +4,7 @@ on:
   push:
     branches: [ main, develop ]
   pull_request:
-    branches: [ main ]
+    branches: [ main, develop ]
 
 jobs:
   lint:
@@ -20,6 +20,9 @@ jobs:
       with:
         node-version: 22 # or your preferred version
         cache: "npm"
+
+    - name: Install dependencies
+      run: npm ci
     
     - name: Run Biome
       run: npm run ci
