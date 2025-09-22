@@ -1,33 +1,22 @@
-import { useEffect, useRef } from "react";
-import type { GameOfLife } from "../lib/GameOfLife";
+import { useCallback, useEffect, useRef } from "react";
 
 export type GameCanvasProps = {
-	game: GameOfLife;
+	grid: boolean[][];
 	cellSize?: number;
-	updateTrigger?: unknown; // 更新をトリガーするためのプロパティ
 };
 
-export function GameCanvas({
-	game,
-	cellSize = 10,
-	updateTrigger,
-}: GameCanvasProps) {
+export function GameCanvas({ grid, cellSize = 10 }: GameCanvasProps) {
 	const canvasRef = useRef<HTMLCanvasElement>(null);
 
-	// ゲーム状態が変わるたびに再描画
-	useEffect(() => {
-		draw();
-	}, [game, updateTrigger]);
-
-	const draw = () => {
+	const draw = useCallback(() => {
 		const canvas = canvasRef.current;
 		if (!canvas) return;
 
 		const ctx = canvas.getContext("2d");
 		if (!ctx) return;
 
-		const { width, height } = game.getSize();
-		const grid = game.getGrid();
+		const height = grid.length;
+		const width = grid[0]?.length || 0;
 
 		// Canvasサイズを設定
 		canvas.width = width * cellSize;
@@ -66,7 +55,12 @@ export function GameCanvas({
 			ctx.lineTo(width * cellSize, y * cellSize);
 			ctx.stroke();
 		}
-	};
+	}, [grid, cellSize]);
+
+	// ゲーム状態が変わるたびに再描画
+	useEffect(() => {
+		draw();
+	}, [draw]);
 
 	return (
 		<canvas
