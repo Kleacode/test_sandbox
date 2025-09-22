@@ -52,7 +52,13 @@ jobs:
           git config --local user.name "github-actions[bot]"
 
       - name: Set version
-        run: npm version ${{ github.event.inputs.version }}
+        run: npm version ${{ github.event.inputs.version }} -m "Version up %s"
+
+      - name: Push branch
+        run: |
+          BRANCH="release/v${{ github.event.inputs.version }}"
+          git push origin HEAD:$BRANCH --follow-tags
+          echo "BRANCH=$BRANCH" >> "$GITHUB_ENV"
 
       - name: Create release pr
-        run: gh pr create -B "main" -t "Release PR" -b ""
+        run: gh pr create -B "main" --head "$BRANCH" -t "Release PR" -b ""
