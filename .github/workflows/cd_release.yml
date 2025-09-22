@@ -11,9 +11,16 @@ jobs:
   build:
     name: 
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -30,12 +37,18 @@ jobs:
           git config --local user.name "github-actions[bot]"
 
       - name: Set version
-        run: npm version ${{ github.event.inputs.version }}
+        run: npm version ${{ github.event.inputs.version } 
+
+      - name: Commit & push
+        run: |
+          git push
+          git push --tags
 
       - name: Build 
         run: npm run build
 
       - name: Upload artifact
+        id: deployment
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./dist
