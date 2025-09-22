@@ -13,7 +13,7 @@ jobs:
 
     permissions:
       contents: write
-      
+
     runs-on: ubuntu-latest
 
     steps:
@@ -38,7 +38,7 @@ jobs:
           git config --local user.name "github-actions[bot]"
 
       - name: Set version
-        run: npm version ${{ github.event.inputs.version } 
+        run: npm version ${{ github.event.inputs.version }}
 
       - name: Commit & push
         run: |
