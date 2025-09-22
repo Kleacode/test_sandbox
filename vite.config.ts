@@ -6,7 +6,5 @@ import tailwindcss from "@tailwindcss/vite";
 export default defineConfig({
 	plugins: [react(), tailwindcss()],
 
-	base: process.env.GITHUB_PAGES
-		? process.env.GITHUB_REPOSITORY?.split("/")[1]
-		: "/",
+	base: process.env.GITHUB_PAGES ? "test_sandbox" : "/",
 });
