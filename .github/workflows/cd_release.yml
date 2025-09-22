@@ -44,6 +44,8 @@ jobs:
         run: |
           git push
           git push --tags
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build 
         run: npm run build
