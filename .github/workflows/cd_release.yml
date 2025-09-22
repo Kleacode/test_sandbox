@@ -30,6 +30,10 @@ jobs:
     name: build
     needs: security
 
+    permissions:
+      contents: write
+      pull-requests: write
+
     runs-on: ubuntu-latest
     env:
       GH_TOKEN: ${{ github.token }}
