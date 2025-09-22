@@ -6,5 +6,5 @@ import tailwindcss from "@tailwindcss/vite";
 export default defineConfig({
 	plugins: [react(), tailwindcss()],
 
-	base: process.env.GITHUB_PAGES ? "test_sandbox" : "/",
+	base: process.env.GITHUB_ACTIONS ? "test_sandbox" : "/",
 });
