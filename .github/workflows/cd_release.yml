@@ -9,11 +9,12 @@ on:
 
 jobs:
   build:
-    name: 
-    runs-on: ubuntu-latest
+    name: build
 
     permissions:
       contents: write
+      
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
