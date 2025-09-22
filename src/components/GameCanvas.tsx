@@ -7,7 +7,11 @@ export type GameCanvasProps = {
 	updateTrigger?: unknown; // 更新をトリガーするためのプロパティ
 };
 
-export function GameCanvas({ game, cellSize = 10, updateTrigger }: GameCanvasProps) {
+export function GameCanvas({
+	game,
+	cellSize = 10,
+	updateTrigger,
+}: GameCanvasProps) {
 	const canvasRef = useRef<HTMLCanvasElement>(null);
 
 	// ゲーム状態が変わるたびに再描画

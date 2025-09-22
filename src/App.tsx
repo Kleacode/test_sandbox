@@ -23,7 +23,7 @@ function App() {
 
 	// 再描画をトリガーする関数
 	const triggerUpdate = () => {
-		setUpdateTrigger(prev => prev + 1);
+		setUpdateTrigger((prev) => prev + 1);
 	};
 
 	const handleNextStep = () => {
@@ -45,7 +45,11 @@ function App() {
 		<div className="flex flex-col items-center gap-4 mx-4">
 			<h1 className="text-4xl">life game</h1>
 
-			<GameCanvas game={gameRef.current} cellSize={8} updateTrigger={updateTrigger} />
+			<GameCanvas
+				game={gameRef.current}
+				cellSize={8}
+				updateTrigger={updateTrigger}
+			/>
 
 			<div className="flex gap-4">
 				<MyButton onClick={initializeGlider}>glider</MyButton>
