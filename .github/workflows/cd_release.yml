@@ -7,6 +7,7 @@ on:
         description: 'release version (e.g., 1.2.3)'
         required: true
 
+jobs:
   security:
     name: Security Audit
     runs-on: ubuntu-latest
@@ -25,7 +26,6 @@ on:
     - name: npm audit
       run: npm audit --audit-level moderate || true
 
-  jobs:
   build:
     name: build
 
