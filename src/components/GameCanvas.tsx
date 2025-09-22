@@ -5,10 +5,7 @@ export type GameCanvasProps = {
 	cellSize?: number;
 };
 
-export function GameCanvas({
-	grid,
-	cellSize = 10,
-}: GameCanvasProps) {
+export function GameCanvas({ grid, cellSize = 10 }: GameCanvasProps) {
 	const canvasRef = useRef<HTMLCanvasElement>(null);
 
 	const draw = useCallback(() => {
