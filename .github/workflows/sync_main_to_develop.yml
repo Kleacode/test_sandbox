@@ -1,0 +1,46 @@
+name: Sync main to develop
+
+on:
+  pull_request:
+    branches:
+      - 'main'
+    types:
+      - 'closed'
+
+jobs:
+  sync:
+    name: sync
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    
+    env:
+      GH_TOKEN: ${{ github.token }}
+
+    if: github.event.pull_request.merged == true
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set config
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+
+      - name: Create branch for sync
+        run: |
+          git switch main
+          git switch -c sync-main-to-develop
+          git push origin sync-main-to-develop
+
+      - name: Create sync pull request
+        run: |
+          gh pr create \
+          --base develop \
+          --head sync-main-to-develop \
+          --title "Sync main to develop" \
+          --body ""
